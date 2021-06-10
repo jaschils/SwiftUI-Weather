@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.white]),
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color("customTeal")]),
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
@@ -28,7 +28,29 @@ struct ContentView: View {
                     Text("75°")
                         .font(.system(size: 70, weight: .medium, design: .default))
                         .foregroundColor(.white)
-                    
+                }
+                .padding(.bottom, 50)
+                
+                HStack(spacing: 25) {
+                        WeatherDayView(dayOfWeek: "MON",
+                                       imageName: "cloud.sun.fill",
+                                       temperature: 72)
+                        
+                        WeatherDayView(dayOfWeek: "TUE",
+                                       imageName: "cloud.sun.fill",
+                                       temperature: 75)
+                        
+                        WeatherDayView(dayOfWeek: "WED",
+                                       imageName: "cloud.drizzle.fill",
+                                       temperature: 67)
+                        
+                        WeatherDayView(dayOfWeek: "THR",
+                                       imageName: "cloud.sun.fill",
+                                       temperature: 69)
+                        
+                        WeatherDayView(dayOfWeek: "FRI",
+                                       imageName: "sun.max.fill",
+                                       temperature: 79)
                 }
                 
                 Spacer() //fills remaining space
@@ -40,5 +62,28 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct WeatherDayView: View {
+    
+    var dayOfWeek: String
+    var imageName: String
+    var temperature: Int
+    
+    var body: some View {
+        VStack {
+            Text(dayOfWeek)
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            Text("\(temperature)")
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .foregroundColor(.white)
+        }
     }
 }
